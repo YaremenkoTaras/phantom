@@ -16,10 +16,10 @@ import lombok.extern.jackson.Jacksonized;
 @Entity
 public class Content {
     @Id
-    @GeneratedValue(generator = "UUID")
-    String id;
+    @GeneratedValue
+    Long id;
     String content;
-    Long likes;
-    Long dislikes;
-    String authorId;
+    long likes;
+    long dislikes;
+    long authorId;
 }

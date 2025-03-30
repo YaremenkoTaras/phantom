@@ -13,8 +13,8 @@ import lombok.extern.jackson.Jacksonized;
 @With
 public class CommentResponse {
     UserResponse user;
-    String id;
-    String parentCommentId;
+    Long id;
+    Long parentCommentId;
     String content;
     Long likes;
     Long dislikes;

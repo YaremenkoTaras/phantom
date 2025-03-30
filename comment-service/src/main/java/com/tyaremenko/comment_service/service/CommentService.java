@@ -12,23 +12,23 @@ import java.util.Optional;
 public class CommentService {
     private CommentRepository commentRepository;
 
-    public Comment createComment(Comment user) {
-        return commentRepository.save(user);
+    public Comment createComment(Comment comment) {
+        return commentRepository.save(comment);
     }
 
-    public Comment updateComment(Comment user) {
-        return commentRepository.save(user);
+    public Comment updateComment(Comment comment) {
+        return commentRepository.save(comment);
     }
 
-    public void deleteComment(String id) {
+    public void deleteComment(Long id) {
         commentRepository.deleteById(id);
     }
 
-    public Optional<Comment> getComment(String id) {
+    public Optional<Comment> getComment(Long id) {
         return commentRepository.findById(id);
     }
 
-    public Iterable<Comment> getCommentsForContent(String contentId) {
+    public Iterable<Comment> getCommentsForContent(Long contentId) {
         return commentRepository.findCommentByContentId(contentId);
     }
 }

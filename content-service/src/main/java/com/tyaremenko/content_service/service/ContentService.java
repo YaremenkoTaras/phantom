@@ -6,6 +6,7 @@ import com.tyaremenko.content_service.domain.Content;
 import com.tyaremenko.content_service.dto.CommentDto;
 import com.tyaremenko.content_service.dto.CommentResponse;
 import com.tyaremenko.content_service.dto.ContentResponse;
+import com.tyaremenko.content_service.dto.SearchUsersRequest;
 import com.tyaremenko.content_service.dto.UserDto;
 import com.tyaremenko.content_service.dto.UserResponse;
 import com.tyaremenko.content_service.repository.ContentRepository;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 @Service
 public class ContentService {
     private static final UserResponse UNKNOWN_USER = UserResponse.builder()
-                                                                 .id("0")
+                                                                 .id(0L)
                                                                  .nickname("Unknown")
                                                                  .firstName("Unknown")
                                                                  .lastName("Unknown")
@@ -31,29 +32,19 @@ public class ContentService {
     private UserServiceClient userServiceClient;
     private CommentServiceClient commentServiceClient;
 
-    private static CommentResponse getCommentResponse(CommentDto dto, Map<String, UserResponse> users) {
-        return CommentResponse.builder()
-                              .id(dto.getId())
-                              .content(dto.getContent())
-                              .likes(dto.getLikes())
-                              .dislikes(dto.getDislikes())
-                              .user(users.getOrDefault(dto.getUserId(), UNKNOWN_USER))
-                              .build();
+    public Content createContent(Content content) {
+        return contentRepository.save(content);
     }
 
-    public Content createContent(Content user) {
-        return contentRepository.save(user);
+    public Content updateContent(Content content) {
+        return contentRepository.save(content);
     }
 
-    public Content updateContent(Content user) {
-        return contentRepository.save(user);
-    }
-
-    public void deleteContent(String id) {
+    public void deleteContent(Long id) {
         contentRepository.deleteById(id);
     }
 
-    public Optional<ContentResponse> getContent(String id) {
+    public Optional<ContentResponse> getContent(Long id) {
         Optional<Content> optionalContent = contentRepository.findById(id);
         if (optionalContent.isEmpty()) {
             return Optional.empty();
@@ -61,13 +52,15 @@ public class ContentService {
         Content content = optionalContent.get();
 
         Set<CommentDto> commentDtos = commentServiceClient.getCommentsForContent(content.getId());
-        Set<String> userIds = commentDtos.stream()
-                                         .map(CommentDto::getUserId)
-                                         .collect(Collectors.toCollection(HashSet::new));
+        Set<Long> userIds = commentDtos.stream()
+                                       .map(CommentDto::getUserId)
+                                       .collect(Collectors.toCollection(HashSet::new));
         userIds.add(content.getAuthorId());
-        Map<String, UserResponse> users = userServiceClient.searchUsers(userIds)
-                                                           .stream()
-                                                           .collect(Collectors.toMap(UserDto::getId, this::toUserResponse));
+        Map<Long, UserResponse> users = userServiceClient.searchUsers(SearchUsersRequest.builder()
+                                                                                        .userIds(userIds)
+                                                                                        .build())
+                                                         .stream()
+                                                         .collect(Collectors.toMap(UserDto::getId, this::toUserResponse));
         Set<CommentResponse> comments = commentDtos.stream()
                                                    .map(dto -> getCommentResponse(dto, users))
                                                    .collect(Collectors.toSet());
@@ -89,5 +82,15 @@ public class ContentService {
                            .firstName(userDto.getFirstName())
                            .lastName(userDto.getLastName())
                            .build();
+    }
+
+    private CommentResponse getCommentResponse(CommentDto dto, Map<Long, UserResponse> users) {
+        return CommentResponse.builder()
+                              .id(dto.getId())
+                              .content(dto.getContent())
+                              .likes(dto.getLikes())
+                              .dislikes(dto.getDislikes())
+                              .user(users.getOrDefault(dto.getUserId(), UNKNOWN_USER))
+                              .build();
     }
 }

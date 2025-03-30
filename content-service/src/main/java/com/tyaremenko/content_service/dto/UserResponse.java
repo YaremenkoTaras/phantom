@@ -12,7 +12,7 @@ import lombok.extern.jackson.Jacksonized;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @With
 public class UserResponse {
-    String id;
+    Long id;
     String nickname;
     String firstName;
     String lastName;

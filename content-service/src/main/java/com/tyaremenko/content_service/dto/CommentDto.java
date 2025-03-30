@@ -12,9 +12,9 @@ import lombok.extern.jackson.Jacksonized;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @With
 public class CommentDto {
-    String userId;
-    String id;
-    String parentCommentId;
+    Long userId;
+    Long id;
+    Long parentCommentId;
     String content;
     Long likes;
     Long dislikes;

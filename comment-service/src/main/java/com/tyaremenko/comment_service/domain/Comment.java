@@ -13,19 +13,17 @@ import lombok.extern.jackson.Jacksonized;
 
 
 @Data
-@Jacksonized
 @JsonIgnoreProperties(ignoreUnknown = true)
-@With
 @Table(name = "comments")
 @Entity
 public class Comment {
     @Id
-    @GeneratedValue(generator = "UUID")
-    String id;
-    String userId;
-    String contentId;
-    String parentCommentId;
+    @GeneratedValue
+    Long id;
+    Long userId;
+    Long contentId;
+    Long parentCommentId;
     String content;
-    Long likes;
-    Long dislikes;
+    long likes;
+    long dislikes;
 }

@@ -14,7 +14,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @With
 public class ContentResponse {
-    String id;
+    Long id;
     String content;
     Long likes;
     Long dislikes;

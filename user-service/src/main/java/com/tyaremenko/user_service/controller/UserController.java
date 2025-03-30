@@ -1,7 +1,7 @@
 package com.tyaremenko.user_service.controller;
 
-import com.tyaremenko.user_service.dto.SearchUsersRequest;
 import com.tyaremenko.user_service.domain.User;
+import com.tyaremenko.user_service.dto.SearchUsersRequest;
 import com.tyaremenko.user_service.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/users")
 @AllArgsConstructor
+@RestController
+@RequestMapping("/users")
 public class UserController {
     private UserService userService;
 
@@ -26,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable String id) {
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
         return userService.getUser(id)
                           .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                           .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -43,7 +45,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

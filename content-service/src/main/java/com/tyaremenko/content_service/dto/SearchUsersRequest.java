@@ -1,4 +1,4 @@
-package com.tyaremenko.user_service.dto;
+package com.tyaremenko.content_service.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
@@ -16,3 +16,4 @@ import java.util.Set;
 public class SearchUsersRequest {
     Set<Long> userIds;
 }
+
