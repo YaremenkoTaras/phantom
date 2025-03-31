@@ -1,0 +1,37 @@
+POST http://127.0.0.1:8090/users
+Content-Type: application/json
+
+{
+  "nickname": "awesom-user-1",
+  "firstName": "John",
+  "lastName": "Doe",
+  "password": "password"
+}
+
+###
+
+POST http://127.0.0.1:8090/contents
+Content-Type: application/json
+
+{
+    "content": "The title of the content",
+    "authorId": "1"
+}
+
+###
+
+POST http://127.0.0.1:8090/comments
+Content-Type: application/json
+
+{
+  "content": "The title of the comment",
+  "contentId": 1,
+  "userId": 1
+}
+
+###
+
+GET http://127.0.0.1:8090/contents/1
+
+###
+
