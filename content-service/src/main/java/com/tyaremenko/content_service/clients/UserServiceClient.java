@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Set;
 
-@FeignClient(name = "user-service")
+@FeignClient(name = "user-service", url = "${user-service.url}")
 public interface UserServiceClient {
 
     @PostMapping("/users/search")

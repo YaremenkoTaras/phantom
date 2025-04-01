@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Set;
 
-@FeignClient(name = "comment-service")
+@FeignClient(name = "comment-service", url = "${comment-service.url}")
 public interface CommentServiceClient {
 
     @GetMapping("/comments")
