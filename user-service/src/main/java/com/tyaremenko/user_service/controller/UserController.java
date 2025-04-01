@@ -2,6 +2,7 @@ package com.tyaremenko.user_service.controller;
 
 import com.tyaremenko.user_service.domain.User;
 import com.tyaremenko.user_service.dto.SearchUsersRequest;
+import com.tyaremenko.user_service.messaging.producer.UserRegistrationProducer;
 import com.tyaremenko.user_service.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UserController {
     private UserService userService;
+    private UserRegistrationProducer userRegistrationProducer;
 
     @PostMapping("/search")
     public ResponseEntity<Iterable<User>> getUsers(@RequestBody SearchUsersRequest searchRequest) {
@@ -37,6 +39,12 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<User> registerUser(@RequestBody User user) {
+        userRegistrationProducer.sendUserRegistrationMessage(user);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping

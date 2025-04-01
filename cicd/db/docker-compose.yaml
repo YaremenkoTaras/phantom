@@ -21,11 +21,11 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     volumes:
-        - pgadmin:/var/lib/pgadmin
+      - pgadmin:/var/lib/pgadmin
     ports:
-        - "5050:80"
+      - "5050:80"
     networks:
-        - postgres_network
+      - postgres_network
     restart: unless-stopped
   zipkin:
     image: openzipkin/zipkin
@@ -35,11 +35,19 @@ services:
     networks:
       - postgres_network
     restart: unless-stopped
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - postgres_network
 
 networks:
-    postgres_network:
-        driver: bridge
+  postgres_network:
+    driver: bridge
 
 volumes:
-    postgres:
-    pgadmin:
+  postgres:
+  pgadmin:
