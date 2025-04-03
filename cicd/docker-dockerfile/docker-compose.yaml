@@ -46,7 +46,7 @@ services:
     restart: unless-stopped
 
   user-service:
-    image: yaremenko/user-service:latest
+    image: tyaremenko949/user-service:latest
     container_name: user-service
     ports:
       - "8091:8091"
@@ -56,13 +56,12 @@ services:
     restart: unless-stopped
     depends_on:
       - service-registry
-      - config-server
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka
 
   content-service:
-    image: yaremenko/content-service:latest
+    image: tyaremenko949/content-service:latest
     container_name: content-service
     ports:
       - "8092:8092"
@@ -72,14 +71,13 @@ services:
     restart: unless-stopped
     depends_on:
       - service-registry
-      - config-server
     environment:
         - SPRING_PROFILES_ACTIVE=docker
         - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka
 
-  common-service:
-    image: yaremenko/common-service:latest
-    container_name: common-service
+  comment-service:
+    image: tyaremenko949/comment-service:latest
+    container_name: comment-service
     ports:
       - "8093:8093"
     networks:
@@ -88,13 +86,12 @@ services:
     restart: unless-stopped
     depends_on:
       - service-registry
-      - config-server
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka
 
   service-registry:
-    image: yaremenko/service-registry:latest
+    image: tyaremenko949/service-registry:latest
     container_name: service-registry
     ports:
       - "8761:8761"
@@ -110,23 +107,23 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
 
-  config-server:
-    image: yaremenko/config-server:latest
-    container_name: config-server
-    ports:
-      - "8088:8888"
-    networks:
-      - postgres_network
-      - microservice_network
-    restart: unless-stopped
-    depends_on:
-      - service-registry
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka
+#  config-server:
+#    image: tyaremenko949/config-server:latest
+#    container_name: config-server
+#    ports:
+#      - "8088:8888"
+#    networks:
+#      - postgres_network
+#      - microservice_network
+#    restart: unless-stopped
+#    depends_on:
+#      - service-registry
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka
 
   gateway:
-    image: yaremenko/gateway:latest
+    image: tyaremenko949/gateway:latest
     container_name: gateway
     ports:
       - "8090:8090"

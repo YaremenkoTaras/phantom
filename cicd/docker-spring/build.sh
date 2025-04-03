@@ -1,5 +1,7 @@
 #!/bin/bash
-cd ../../service-registry
+cd ../../
+git checkout main
+cd service-registry
 ./mvnw spring-boot:build-image "-Dspring-boot.build-image.imageName=yaremenko/service-registry" "-Djava.net.useSystemProxies=true"
 cd ../config-server
 ./mvnw spring-boot:build-image "-Dspring-boot.build-image.imageName=yaremenko/config-server"
