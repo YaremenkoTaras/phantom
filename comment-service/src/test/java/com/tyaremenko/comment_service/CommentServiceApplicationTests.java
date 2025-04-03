@@ -1,13 +1,11 @@
 package com.tyaremenko.comment_service;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class CommentServiceApplicationTests {
+class CommentServiceApplicationTests extends BaseTest {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }

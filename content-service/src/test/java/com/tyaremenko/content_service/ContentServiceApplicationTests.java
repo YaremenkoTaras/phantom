@@ -1,13 +1,11 @@
 package com.tyaremenko.content_service;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class ContentServiceApplicationTests {
+class ContentServiceApplicationTests extends BaseTest {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }

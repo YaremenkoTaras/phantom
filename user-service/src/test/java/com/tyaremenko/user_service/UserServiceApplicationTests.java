@@ -1,13 +1,11 @@
 package com.tyaremenko.user_service;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class UserServiceApplicationTests {
+class UserServiceApplicationTests extends BaseTest {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }

@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: segmentation-configuration
+  cloud:
+    config:
+      enabled: false
+      discovery:
+        enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+eureka:
+  client:
+    enabled: false
+
+embedded:
+  postgres:
+    enabled: true
+
+local:
+  management:
+    port: 8061
+  server:
+    port: 8060
+
