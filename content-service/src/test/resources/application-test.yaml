@@ -14,10 +14,6 @@ eureka:
   client:
     enabled: false
 
-embedded:
-  postgres:
-    enabled: true
-
 local:
   management:
     port: 8051
