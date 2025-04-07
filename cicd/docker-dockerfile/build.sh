@@ -1,8 +1,4 @@
 #!/bin/bash
-cd ../
-echo "Run local db"
-cd  local
-docker compose -f docker-compose.yaml up -d
 cd ../../
 echo "Checking out main branch"
 git checkout main
@@ -50,7 +46,4 @@ docker tag tyaremenko949/comment-service tyaremenko949/comment-service:latest
 docker push tyaremenko949/comment-service:latest
 cd ../
 echo "Building and pushing Docker images completed"
-echo "Stopping and removing local db"
-cd cicd/local
-docker compose -f docker-compose.yaml down
 echo "Build finished"

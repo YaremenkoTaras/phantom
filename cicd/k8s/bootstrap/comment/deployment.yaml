@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comment-service
+  labels:
+    app: comment-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        app: comment-service
+  template:
+    metadata:
+      name: comment-service
+      labels:
+        app: comment-service
+    spec:
+      containers:
+        - name: comment-service
+          image: tyaremenko949/comment-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8093
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s
+      restartPolicy: Always
